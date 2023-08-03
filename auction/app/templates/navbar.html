@@ -1,0 +1,58 @@
+
+<div class="">
+  <nav class="navbar navbar-default navbar-fixed-left navbar-expand-lg navbar-light bg-light ">
+    <a class="nav-link" href="{{ url_for('index') }}" style="font-weight:normal;color:black;">Auction</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse fixed" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="{{ url_for('index') }}" style="font-weight:normal;color:black;">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ url_for('explore') }}">Explore</a>
+        </li>
+        {% if current_user.username  == 'smit151' %}
+        <li class="nav-item ">
+          <a class="nav-link" style="font-weight:normal;color:black;" href="{{ url_for('admin') }}">Admin <span class="sr-only">(current)</span></a>
+        </li>
+        {% endif %}
+
+        {% if current_user.is_anonymous %}
+        <li class="nav-item ">
+          <a class="nav-link" style="font-weight:normal;color:black;" href="{{ url_for('login') }}">Log In <span class="sr-only">(current)</span></a>
+        </li>
+        {% else %}
+        <li class="nav-item ">
+          <a class="nav-link" style="font-weight:normal;color:black;" href="{{ url_for('logout') }}">Log Out <span class="sr-only">(current)</span></a>
+        </li>
+        {% endif %}
+
+      </ul>
+      <form class="form-inline my-2 my-lg-0" method="post" action = "{{ url_for('search') }}">
+        <input class="form-control mr-sm-2" type="search" id="search" name = "search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        &nbsp;&nbsp;
+        {% if current_user.is_active %}
+
+        <a href="{{ url_for('user',username = current_user.username) }}">
+          {% if current_user.profile_photo %}
+          <img src="{{ url_for('static',filename = 'profile/photo/'+current_user.id|string+'.jpg') }}" style="height:40px;width:40px; border-radius: 50%;" alt=""/>
+
+            {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="dark" class="bi bi-person-circle"
+            viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+            <path fill-rule="evenodd"
+              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+          </svg>
+          {% endif %}
+          {% endif %}
+        </a>
+      </form>
+    </div>
+  </nav>
+</div>

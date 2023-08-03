@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+
+    </style>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+    $("#show_hide_password a").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_hide_password input').attr("type") == "text"){
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass( "fa-eye-slash" );
+            $('#show_hide_password i').removeClass( "fa-eye" );
+        }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass( "fa-eye-slash" );
+            $('#show_hide_password i').addClass( "fa-eye" );
+        }
+    });
+});
+    </script>
+</head>
+<body>
+{% include "flash_messages.html" %}
+<div class="col-md-4 offset-md-3" >
+                    <span class="anchor" id="formPayment"></span>
+                    <hr class="my-5">
+
+                    <!-- form card cc payment -->
+                    <div class="card card-outline-secondary">
+                        <div class="card-body">
+                            <h3 class="text-center">Confirm your Bid</h3>
+                            <hr>
+
+                            <form class="form" role="form" autocomplete="off" method="POST">
+                                <div class="row">
+                                    <label class="col-md-12">Password</label>
+                                </div>
+                                <div class="form-inline">
+                                    <div class="input-group" id="show_hide_password">
+                                        <input type="password" class="form-control text-left" id="password" name = 'password' placeholder="Password">
+                                        <a href=""> <div class="input-group-prepend"><span class="input-group-text">show</span></div></a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-12">Amount</label>
+                                </div>
+                                <div class="form-inline">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control text-right" id="amount" name = 'amount' placeholder="39">
+                                        <div class="input-group-prepend"><span class="input-group-text">RS</span></div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-success btn-lg btn-block">BID</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /form card cc payment -->
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

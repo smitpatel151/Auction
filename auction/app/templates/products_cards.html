@@ -1,0 +1,23 @@
+<div class="card" style="width: 18rem;">
+    <!-- carousel start -->
+    <div id="carouselExampleFade1" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+
+            {% for image in product.images.split(',') %}
+            {% if image|length >1 %}
+            <div class="carousel-item {% if loop.index == 1 %} active {% endif %}" id="{{ product.id }}">
+                <img src="{{ url_for('static',filename = 'product images/'+product.id|string+'/'+image) }}"
+                    class="d-block w-100" height="200" alt="...">
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+
+        <!-- carousel end -->
+        <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <a href="#" class="btn btn-primary">Click for Bid</a>
+        </div>
+    </div>

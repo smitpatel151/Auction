@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{{ url_for('static',filename = 'profile/css/style.css' ) }}">
+</head>
+
+<body>
+{% block scripts %}
+    {{ moment.include_moment() }}
+{% endblock %}
+  {% include 'navbar.html' %}
+  {% include 'flash_messages.html' %}
+
+<div class="emp-profile w-70 p-3">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                           {% if user.profile_photo %}
+                            <img src="{{ url_for('static',filename = 'profile/photo/'+user.id|string+'.jpg') }}" style="height:250px;" alt=""/>
+                            {% else %}
+                                {% if user.gender == 'male' %}
+                                    <img src="{{ url_for('static',filename = 'profile/default/male.jpg') }}" style="height:250px;" alt=""/>
+                                {% else %}
+                                    <img src="{{ url_for('static',filename = 'profile/default/female.jpg') }}" style="height:250px;" alt=""/>
+                                {% endif %}
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        {{ user.username }}
+                                    </h5>
+                                    {% if user == current_user %}
+                                        {% elif not current_user.is_following(user) %}
+                                        <p>
+                                            <a href="{{ url_for('follow',username = user.username) }}">
+                                                <button type="button" class="btn btn-primary">Follow</button>
+                                            </a>
+                                        </p>
+                                        {% else %}
+                                        <p>
+                                            <a href="{{ url_for('unfollow',username = user.username) }}">
+                                                <button type="button" class="btn btn-primary">Unfollow</button>
+                                            </a>
+                                        </p>
+                                    {% endif %}
+                                    <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Add Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="false">Auction products</a>
+                                </li>
+                                {% if user.username==current_user.username %}
+                                <li class="nav-item">
+                                    <a class="nav-link" id="wallet-tab" data-toggle="tab" href="#wallet" role="tab" aria-controls="wallet" aria-selected="false">Wallet Balance</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        {% if user.username == current_user.username %}
+                        <a href ="{{ url_for('edit_profile',username = user.username) }}"}><input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                            {% if user==current_user %}
+                            <p>Account</p>
+                            <a href="{{url_for('wallet',user_id=current_user.id)}}">Wallet</a><br/>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="tab-content profile-tab" id="myTabContent">
+
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Id</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ user.username }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ user.first_name +' '+ user.last_name }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ user.email }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Last seen</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                               {% if current_user.last_seen %}
+                                                    <p>{{ moment(user.last_seen).format('LLLL') }}</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% if current_user.about_me %}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Profession</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ user.about_me }}</p>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                            </div>
+
+                            <div class="tab-pane" id="wallet" role="tabpanel" aria-labelledby="wallet-tab">
+                                <p>Wallet amount:<input type="text" value="{{ current_user.wallet_amount }}" disabled></p>
+                                <table class="table table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">No</th>
+                                      <th scope="col">Product/Cash</th>
+                                      <th scope="col">Credit</th>
+                                      <th scope="col">Debit</th>
+                                      <th scope="col">Amount</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for i in passbook %}
+                                    <tr>
+                                      <th scope="row">{{ loop.index }}</th>
+                                      {% if i.passbook_product.name %}
+                                        <td>{{ i.passbook_product.name }}</td>
+                                      {% else %}
+                                        <td>Cash</td>
+                                      {% endif %}
+
+                                      {% if i.credit %}
+                                        <td>{{ i.credit }}</td>
+                                      {% else %}
+                                        <td>-</td>
+                                      {% endif %}
+
+                                      {% if i.debit %}
+                                        <td>{{ i.debit }}</td>
+                                      {% else %}
+                                        <td>-</td>
+                                      {% endif %}
+
+                                      <td>{{ i.current_amount }}</td>
+                                      <td>{{ i.passbook_bid.freze_amount }}</td>
+                                    </tr>
+                                  {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+
+                            <div class="tab-pane" id="product" role="tabpanel" aria-labelledby="wallet-tab">
+                                    <table>
+                                        <tr>
+                                            {% for product in user.products %}
+                                                    <td>
+                                                {% include "products_cards.html" %}
+                                                    </td>
+                                            {% if loop.index is divisibleby 2%}
+                                        </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                    </table>
+                            </div>
+
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <form action="" method="post" enctype="multipart/form-data">
+                                <input type="text" class="form-control" placeholder="Product name" id="product_name" name="product_name" required>&nbsp;
+                                <input type="text" class="form-control" placeholder="Description" id="product_description" name="product_description" required>&nbsp;
+                                <div>
+                                    <label class="mr-sm-2 sr-only" >Preference</label>
+                                      <select class="custom-select mr-sm-2"  name="category" id="category" required>
+                                        <option selected>Category</option>
+                                        <option value="Car">Car</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Antics">Antics</option>
+                                        <option value="Others">Others</option>
+                                      </select>
+                                </div>&nbsp;
+                                <input type="text" class="form-control" placeholder="Price" id="product_price" name="product_price" required>&nbsp;
+                                <p>Enter date and time in 24 hours format<input type="text" id="input" width="234" id="product_lastdate" name="product_lastdate" placeholder="Enter Product Last Date" required /></p>
+                                    <script>
+                                        $('#input').datetimepicker({
+                                            uiLibrary: 'bootstrap4',
+                                            modal: true,
+                                            footer: true
+                                        });
+                                    </script>
+                                <p>Select product images<input type="file"  name="file" multiple="true" autocomplete="off"  class="form-control" placeholder="Add Images" required></p>
+                                <input class="btn btn-primary" type="submit">
+                            </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+        </div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</html>
+
+
+

@@ -1,0 +1,3 @@
+Dear {{ user.username }}
+{{ product.name  }} and price {{ product.price }}
+The Microblog Team

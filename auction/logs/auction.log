@@ -1,0 +1,44 @@
+2023-04-12 20:09:41,861 ERROR: Exception on /user/vishwa/ [POST] [in C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py:1741]
+Traceback (most recent call last):
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask_monitoringdashboard\core\measurement.py", line 127, in wrapper
+    raise raised_exception
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask_monitoringdashboard\core\measurement.py", line 107, in evaluate
+    result = route_handler(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\auction\auction\app\routes.py", line 197, in user
+    os.chdir('D:/auction/app/static/product images')
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:/auction/app/static/product images'
+2023-04-12 20:09:49,453 ERROR: Exception on /user/vishwa/ [POST] [in C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py:1741]
+Traceback (most recent call last):
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask_monitoringdashboard\core\measurement.py", line 127, in wrapper
+    raise raised_exception
+  File "C:\Users\Smit\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask_monitoringdashboard\core\measurement.py", line 107, in evaluate
+    result = route_handler(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\auction\auction\app\routes.py", line 197, in user
+    os.chdir('D:/auction/app/static/product images')
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:/auction/app/static/product images'
